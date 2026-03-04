@@ -168,7 +168,8 @@ async def get_agent_loop(db: AsyncSession = Depends(get_db)) -> AgentLoop:
         
         skills_dir = workspace / "skills"
         skills_dir.mkdir(parents=True, exist_ok=True)
-        skills = SkillsLoader(skills_dir)
+        from backend.utils.paths import APPLICATION_ROOT
+        skills = SkillsLoader(skills_dir, builtin_skills_dir=APPLICATION_ROOT / "skills")
         
         context_builder = ContextBuilder(
             workspace=workspace,
